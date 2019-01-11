@@ -38,7 +38,7 @@ def decrypt(key, s):
     except:
         return "failed"
 key = 12
-r = requests.get('http://127.0.0.1:8081/userrd',data={'u':encrypt(key, 'test'),'p':encrypt(key, 'test'),'o':'1'})
+r = requests.get('http://服务器ip:服务器端口/userrd',data={'u':encrypt(key, 'test'),'p':encrypt(key, 'test'),'o':'1'})
 print r.text
 if "true" in decrypt(key,eval(r.text)["status"]):
     print("校验成功 此地调用功能")
