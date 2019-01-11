@@ -17,7 +17,7 @@ def encrypt(key, s):
         j = j+2
     return c.decode("gbk")
 key = 12
-r = requests.get('http://127.0.0.1:8081/userrd',data={'u':encrypt(key, 'test'),'p':encrypt(key, 'test'),'o':'1'})
+r = requests.get('http://服务器地址:服务器端口/userrd',data={'u':encrypt(key, 'test'),'p':encrypt(key, 'test'),'o':'1'})
 print r.text
 if eval(r.text)["status"] == "true":
     print("此地调用功能")
