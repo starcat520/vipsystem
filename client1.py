@@ -1,7 +1,10 @@
 #coding=utf-8
-import requests
+import requests,sys
+if sys.getdefaultencoding() != 'utf-8':
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 def encrypt(key, s):
-    b = bytearray(str(s).encode("gbk"))
+    b = bytearray(str(s))
     n = len(b) # 求出 b 的字节数
     c = bytearray(n*2)
     j = 0
@@ -15,9 +18,9 @@ def encrypt(key, s):
         c[j] = c1
         c[j+1] = c2
         j = j+2
-    return c.decode("gbk")
+    return c
 def decrypt(key, s):
-    c = bytearray(str(s).encode("gbk"))
+    c = bytearray(str(s))
     n = len(c) # 计算 b 的字节数
     if n % 2 != 0 :
         return ""
@@ -34,13 +37,15 @@ def decrypt(key, s):
         b1 = b2^ key
         b[i]= b1
     try:
-        return b.decode("gbk")
+        return b
     except:
         return "failed"
 key = 12
-r = requests.get('http://服务器ip:服务器端口/userrd',data={'u':encrypt(key, 'test'),'p':encrypt(key, 'test'),'o':'1'})
+r = requests.get('http://scd.free.idcfengye.com/userrd',data={'u':str(encrypt(key, 'a1')),'p':str(encrypt(key, 'a1')),'o':u'1'})
 print r.text
 if "true" in decrypt(key,eval(r.text)["status"]):
     print("校验成功 此地调用功能")
 else:
     print("校验失败 使用调用失败的函数")
+
+#auth(1,2,3)
